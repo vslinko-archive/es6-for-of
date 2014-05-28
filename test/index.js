@@ -19,7 +19,7 @@ describe('ES6ForOf', function() {
 
     var result = [
       'var $__getIterator = function(iterable) {',
-      '  var sym = (typeof Symbol === "function" ? Symbol.iterator : "@@iterator");',
+      '  var sym = typeof Symbol === "function" && Symbol.iterator || "@@iterator";',
       '',
       '  if (typeof iterable[sym] === "function") {',
       '    return iterable[sym]();',
