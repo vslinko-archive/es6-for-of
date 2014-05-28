@@ -1,6 +1,6 @@
 # es6-for-of
 
-Compiles JavaScript written using ES6 for-of to ES4 syntax.
+Compiles JavaScript written using ES6 for-of to ES3 syntax.
 For example, this:
 
 ```js
