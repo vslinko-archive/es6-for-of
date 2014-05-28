@@ -8,7 +8,8 @@
   "dependencies": {
     "through": "^2.3",
     "recast": "^0.5",
-    "esprima": "git+https://github.com/ariya/esprima.git#harmony"
+    "esprima": "git+https://github.com/ariya/esprima.git#harmony",
+    "ast-util": "^0.0"
   },
   "devDependencies": {
     "mocha": "^1.19",

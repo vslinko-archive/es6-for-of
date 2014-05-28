@@ -18,27 +18,86 @@ describe('ES6ForOf', function() {
     ].join('\n');
 
     var result = [
-      '(function() {',
-      '  var __iterator__ = this.a;',
+      'var $__getIterator = function(iterable) {',
+      '  var sym = (typeof Symbol === "function" ? Symbol.iterator : "@@iterator");',
       '',
-      '  for (var __key__ = 0; __key__ < __iterator__.length; __key__++) {',
-      '    var b = __iterator__[__key__];',
-      '',
-      '    (function() {',
-      '      var __iterator__ = b;',
-      '',
-      '      for (var __key__ = 0; __key__ < __iterator__.length; __key__++) {',
-      '        var c = __iterator__[__key__];',
-      '        this.d.push(c);',
-      '      }',
-      '    }).bind(this)();',
+      '  if (typeof iterable[sym] === "function") {',
+      '    return iterable[sym]();',
+      '  } else if (Object.prototype.toString.call(iterable) === "[object Array]") {',
+      '    return $__arrayIterator(iterable);',
+      '  } else {',
+      '    throw new TypeError();',
       '  }',
-      '}).bind(this)();'
+      '};',
+      '',
+      'var $__arrayIterator = function(array) {',
+      '  var index = 0;',
+      '',
+      '  return {',
+      '    next: function() {',
+      '      if (index >= array.length) {',
+      '        return {',
+      '          done: true,',
+      '          value: void 0',
+      '        };',
+      '      } else {',
+      '        return {',
+      '          done: false,',
+      '          value: array[index++]',
+      '        };',
+      '      }',
+      '    }',
+      '  };',
+      '};',
+      '',
+      'for (var $__0 = $__getIterator(this.a), $__1; !($__1 = $__0.next()).done; ) {',
+      '  var b = $__1.value;',
+      '',
+      '  for (var $__2 = $__getIterator(b), $__3; !($__3 = $__2.next()).done; ) {',
+      '    var c = $__3.value;',
+      '    this.d.push(c);',
+      '  }',
+      '}'
     ].join('\n');
 
     expectTransform(code, result);
 
-    this.a = [[1, 2, 3], [4, 5, 6]];
+    var globalIndex = 1;
+
+    var oneTwoThree = {
+      "@@iterator": function() {
+        var index = 0;
+
+        return {
+          next: function() {
+            if (index >= 3) {
+              return {done: true, value: void 0};
+            } else {
+              index++;
+              return {done: false, value: globalIndex++};
+            }
+          }
+        };
+      }
+    };
+
+    this.a = {
+      "@@iterator": function() {
+        var index = 0;
+
+        return {
+          next: function() {
+            if (index >= 2) {
+              return {done: true, value: void 0};
+            } else {
+              index++;
+              return {done: false, value: oneTwoThree};
+            }
+          }
+        };
+      }
+    };
+
     this.d = [];
     eval(result);
     expect(this.d).to.eql([1, 2, 3, 4, 5, 6]);

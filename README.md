@@ -12,14 +12,42 @@ for (var a of b) {
 compiles to this:
 
 ```js
-(function() {
-  var __iterator__ = b;
+var $__getIterator = function(iterable) {
+  var sym = (typeof Symbol === "function" ? Symbol.iterator : "@@iterator");
 
-  for (var __key__ = 0; __key__ < __iterator__.length; __key__++) {
-    var a = __iterator__[__key__];
-    console.log(a);
+  if (typeof iterable[sym] === "function") {
+    return iterable[sym]();
+  } else if (Object.prototype.toString.call(iterable) === "[object Array]") {
+    return $__arrayIterator(iterable);
+  } else {
+    throw new TypeError();
   }
-})();
+};
+
+var $__arrayIterator = function(array) {
+  var index = 0;
+
+  return {
+    next: function() {
+      if (index >= array.length) {
+        return {
+          done: true,
+          value: void 0
+        };
+      } else {
+        return {
+          done: false,
+          value: array[index++]
+        };
+      }
+    }
+  };
+};
+
+for (var $__0 = $__getIterator(b), $__1; !($__1 = $__0.next()).done; ) {
+  var a = $__1.value;
+  console.log(a);
+}
 ```
 
 ## Install
