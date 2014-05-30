@@ -14,7 +14,7 @@ describe('ES6ForOf', function() {
   it('should fix for-of statement', function() {
     var code = [
       'for (var b of a) {',
-      '  for (var c of b) d.push(c);',
+      '  for (c of b) d.push(c);',
       '}'
     ].join('\n');
 
@@ -55,7 +55,7 @@ describe('ES6ForOf', function() {
       '  var b = $__1.value;',
       '',
       '  for (var $__2 = $__getIterator(b), $__3; !($__3 = $__2.next()).done; ) {',
-      '    var c = $__3.value;',
+      '    c = $__3.value;',
       '    d.push(c);',
       '  }',
       '}'
@@ -100,7 +100,7 @@ describe('ES6ForOf', function() {
     };
 
     var d = [];
-    vm.runInNewContext(result, { a: a, d: d });
+    vm.runInNewContext(result, { a: a, d: d, c: null });
     expect(d).to.eql([1, 2, 3, 4, 5, 6]);
   });
 });
