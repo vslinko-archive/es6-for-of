@@ -36,15 +36,15 @@ describe('ES6ForOf', function() {
       '',
       '  return {',
       '    next: function() {',
-      '      if (index >= array.length) {',
-      '        return {',
-      '          done: true,',
-      '          value: void 0',
-      '        };',
-      '      } else {',
+      '      if (index < array.length) {',
       '        return {',
       '          done: false,',
       '          value: array[index++]',
+      '        };',
+      '      } else {',
+      '        return {',
+      '          done: true,',
+      '          value: void 0',
       '        };',
       '      }',
       '    }',
@@ -100,7 +100,7 @@ describe('ES6ForOf', function() {
     };
 
     var d = [];
-    vm.runInNewContext(result, { a: a, d: d, c: null });
+    vm.runInNewContext(result, {a: a, d: d, c: null});
     expect(d).to.eql([1, 2, 3, 4, 5, 6]);
   });
 });
