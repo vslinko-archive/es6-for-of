@@ -24,7 +24,7 @@ describe('ES6ForOf', function() {
       '',
       '  if (typeof iterable[sym] === "function") {',
       '    return iterable[sym]();',
-      '  } else if (Object.prototype.toString.call(iterable) === "[object Array]") {',
+      '  } else if (typeof iterable === "object" || typeof iterable === "function") {',
       '    return $__arrayIterator(iterable);',
       '  } else {',
       '    throw new TypeError();',
