@@ -6,10 +6,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "through": "^2.3",
+    "ast-util": "^0.1",
+    "esprima-fb": "^6001.1001.0-dev-harmony-fb",
     "recast": "^0.5",
-    "esprima": "git+https://github.com/ariya/esprima.git#harmony",
-    "ast-util": "^0.1"
+    "through": "^2.3"
   },
   "devDependencies": {
     "mocha": "^1.19",
